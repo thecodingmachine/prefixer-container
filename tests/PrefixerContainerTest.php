@@ -3,6 +3,7 @@ namespace Mouf\PrefixerContainer;
 
 use Acclimate\Container\CompositeContainer;
 use Interop\Container\ContainerInterface;
+use Mouf\Picotainer\Picotainer;
 
 /**
  * Test class for PrefixerContainer
