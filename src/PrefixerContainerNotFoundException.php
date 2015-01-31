@@ -8,6 +8,6 @@ use Interop\Container\Exception\NotFoundException;
  *
  * @author David Négrier <david@mouf-php.com>
  */
-class PrefixerContainerNotFoundException extends \InvalidArgumentException implements NotFoundException
+class PrefixerContainerNotFoundException extends PrefixerContainerException implements NotFoundException
 {
 }

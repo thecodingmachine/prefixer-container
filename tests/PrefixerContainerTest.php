@@ -24,6 +24,12 @@ class PrefixerContainerTest extends \PHPUnit_Framework_TestCase
             "instance" => function () { return "valueB"; },
             "instanceWithInternalLookup" => function (ContainerInterface $c) { return $c->get('instance'); },
             "instanceWithExternalLookup" => function (ContainerInterface $c) { return $c->get('A.instance'); },
+            "instanceWithHasOnRootContainer" => function (ContainerInterface $c) {
+                $this->assertTrue($c->has('instanceWithInternalLookup'));
+                $this->assertTrue($c->has('B.instanceWithInternalLookup'));
+                $this->assertFalse($c->has('notfound'));
+                return "Hello world";
+            },
         ], new DelegateLookupUnprefixerContainer($rootContainer, "B."));
 
         $rootContainer->addContainer(new PrefixerContainer($containerA, "A."));
@@ -40,6 +46,19 @@ class PrefixerContainerTest extends \PHPUnit_Framework_TestCase
         $rootContainer = $this->getRootContainer();
 
         $rootContainer->get('instance');
+    }
+
+    /**
+     * @expectedException Interop\Container\Exception\NotFoundException
+     */
+    public function testGetExceptionOnScope()
+    {
+        $containerA = new Picotainer([
+            "instance" => function () { return "valueA"; },
+        ]);
+        $prefixedContainerA = new PrefixerContainer($containerA, "A.");
+
+        $prefixedContainerA->get('notfound');
     }
 
     public function testGet()
@@ -61,6 +80,8 @@ class PrefixerContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($rootContainer->has('B.instanceWithInternalLookup'));
         $this->assertTrue($rootContainer->has('B.instanceWithExternalLookup'));
         $this->assertFalse($rootContainer->has('toto'));
+
+        $rootContainer->get('B.instanceWithHasOnRootContainer');
     }
 
 }

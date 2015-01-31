@@ -41,7 +41,7 @@ class PrefixerContainer implements ContainerInterface
     {
         $newId = $this->transformIdentifier($id);
         if ($newId === null) {
-            return false;
+            throw new PrefixerContainerNotFoundException(sprintf("Could not find instance '%s'. Note: all instances in this container must be prefixed by '%s'.", $id, $this->prefix));
         } else {
             return $this->targetContainer->get($newId);
         }
