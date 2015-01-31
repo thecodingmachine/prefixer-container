@@ -1,0 +1,36 @@
+{
+	"name" : "mouf/prefixer-container",
+	"description" : "This package contains a really minimalist dependency injection container that acts as a proxy in front of a target container. Its goal is to prefix all instances names in the target container.",
+	"authors" : [{
+			"name" : "David Négrier",
+			"email" : "d.negrier@thecodingmachine.com",
+			"homepage" : "http://mouf-php.com"
+		}
+	],
+	"keywords" : [
+		"dependency injection",
+		"DI",
+		"container-interop"
+	],
+	"homepage" : "http://mouf-php.com",
+	"license" : "MIT",
+	"require" : {
+		"container-interop/container-interop" : "~1.0"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "~3.7",
+		"satooshi/php-coveralls" : "dev-master",
+		"acclimate/container" : "~1.0",
+		"mouf/picotainer" : "~1.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Mouf\\PrefixerContainer\\" : "src/"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Mouf\\PrefixerContainer\\" : "tests/"
+		}
+	}
+}
