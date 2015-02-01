@@ -34,12 +34,12 @@ If you want to keep access to both instances through the root container, you hav
 a naming collision. Of course, you can rename one of those instances, but if the containers are provided by
 third party libraries, that might not be possible.
 
-![1.0/doc/the_issue.png](The issue)
+![doc/the_issue.png?raw=true](The issue)
 
 So what you need to do is to rename the instances of one of the containers so that there is no more conflict.
 This is where the `PrefixerContainer` kicks in.
 
-![1.0/doc/solution1.png](Solution 1)
+![doc/solution1.png?raw=true](Solution 1)
 
 By wrapping your containers inside a `PrefixerContainer`, you can change the name of the instances to the outside
 world.
@@ -55,19 +55,19 @@ dependencies has changed because of the `PrefixerContainer`!
 
 Just image a container with a service that uses the `dbConnection`:
 
-![1.0/doc/container_with_dependency.png](A container with a dependency)
+![doc/container_with_dependency.png?raw=true](A container with a dependency)
 
 What if we wrap this container in a `PrefixerContainer`? If we query the `A.myService` entry (1), the container will
 delegate to the rootContainer the lookup of the `dbConnection` entry. Now, this is a problem, because it should
 query the `A.dbConnection` entry.
 
-![1.0/doc/delegate_lookup_issue.png](Delegate lookup issue)
+![doc/delegate_lookup_issue.png?raw=true](Delegate lookup issue)
 
 In order to fix this, the prefixer-container comes with a `DelegateLookupUnprefixerContainer` class. This is a wrapper 
 you will use to wrap the delegate lookup container. When the `get` method of the wrapper is called, it will first try
 to get the instance with the prefix, and if it fails, it will try to get the instance without the prefix.
 
-![1.0/doc/delegate_lookup_solved.png](Delegate lookup solved)
+![doc/delegate_lookup_solved.png?raw=true](Delegate lookup solved)
 
 If we query the `A.myService` entry (1), , the container will delegate to the rootContainer the lookup of the `dbConnection` entry (2).
 This goes through the `DelegateLookupUnprefixerContainer` first that will add the "A." prefix (3). The lookup goes through the
