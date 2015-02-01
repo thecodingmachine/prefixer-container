@@ -44,6 +44,40 @@ This is where the `PrefixerContainer` kicks in.
 By wrapping your containers inside a `PrefixerContainer`, you can change the name of the instances to the outside
 world.
 
+Here is a sample code demonstrating the code above:
+
+```php
+use Mouf\PrefixerContainer\PrefixerContainer;
+use Acclimate\Container\CompositeContainer;
+use Interop\Container\ContainerInterface;
+use Mouf\Picotainer\Picotainer;
+
+
+$rootContainer = new CompositeContainer();
+
+// We use Picotainer, a minimalistic container for this demo.
+$containerA = new Picotainer([
+    "dbConnection" => function () { return new DbConnection(...); },
+]);
+
+$containerB = new Picotainer([
+    "dbConnection" => function () { return new OtherDbConnection(...); },
+]);
+
+
+$rootContainer->addContainer(new PrefixerContainer($containerA, 'A.')));
+$rootContainer->addContainer(new PrefixerContainer($containerB, 'B.')));
+
+// Get 'dbConnection' from container A:
+$dbConnectionA = $rootContainer->get('A.dbConnection');
+
+// Get 'dbConnection' from container B:
+$dbConnectionB = $rootContainer->get('B.dbConnection');
+
+// This will throw a NotFoundException:
+$willFail = $rootContainer->get('dbConnection');
+```
+
 Working with delegate lookup containers
 ---------------------------------------
 
@@ -72,6 +106,31 @@ to get the instance with the prefix, and if it fails, it will try to get the ins
 If we query the `A.myService` entry (1), , the container will delegate to the rootContainer the lookup of the `dbConnection` entry (2).
 This goes through the `DelegateLookupUnprefixerContainer` first that will add the "A." prefix (3). The lookup goes through the
 root container again, then the prefixer container that strips the "A." and finally, the dependency `dbConnection` is solved. *Job's done!*
+
+Here is a sample code demonstrating the code above:
+
+```php
+use Mouf\PrefixerContainer\PrefixerContainer;
+use Acclimate\Container\CompositeContainer;
+use Interop\Container\ContainerInterface;
+use Mouf\Picotainer\Picotainer;
+
+$prefix = "A.";
+
+$rootContainer = new CompositeContainer();
+
+// We use Picotainer, a minimalistic container for this demo.
+$container = new Picotainer([
+    "dbConnection" => function () { return new DbConnection(...); },
+    // The myService service requires the 'dbConnection'
+    "myService" => function (ContainerInterface $c) { return new MyService($c->get('dbConnection')); },
+], new DelegateLookupUnprefixerContainer($rootContainer, $prefix));
+
+// In the root container, we add a prefixed version of the container
+$rootContainer->addContainer(new PrefixerContainer($container, $prefix));
+
+$service = $rootContainer->get('myService');
+```
 
 Why the need for this package?
 ------------------------------
