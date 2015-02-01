@@ -4,7 +4,7 @@ Prefixer-Container
 [![Latest Unstable Version](https://poser.pugx.org/mouf/prefixer-container/v/unstable.svg)](https://packagist.org/packages/mouf/prefixer-container)
 [![License](https://poser.pugx.org/mouf/prefixer-container/license.svg)](https://packagist.org/packages/mouf/prefixer-container)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/prefixer-container/badges/quality-score.png?b=1.0)](https://scrutinizer-ci.com/g/thecodingmachine/prefixer-container/?branch=1.0)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e6cfc4b4-bc6d-4edc-8e01-ac05352c3689/mini.png)](https://insight.sensiolabs.com/projects/e6cfc4b4-bc6d-4edc-8e01-ac05352c3689)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e6cfc4b4-bc6d-4edc-8e01-ac05352c3689/big.png)](https://insight.sensiolabs.com/projects/e6cfc4b4-bc6d-4edc-8e01-ac05352c3689)
 [![Build Status](https://travis-ci.org/thecodingmachine/prefixer-container.svg?branch=1.0)](https://travis-ci.org/thecodingmachine/prefixer-container)
 [![Coverage Status](https://coveralls.io/repos/thecodingmachine/prefixer-container/badge.svg?branch=1.0)](https://coveralls.io/r/thecodingmachine/prefixer-container?branch=1.0)
 
